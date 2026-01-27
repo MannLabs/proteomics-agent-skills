@@ -25,7 +25,7 @@ description: Read proteomics search engine outputs (PSM tables, protein matrices
 
 | Engine      | Key Columns                                               | Typical Files                       |
 | ----------- | --------------------------------------------------------- | ----------------------------------- |
-| DIA-NN      | `Precursor.Id`, `Protein.Group`, `Run`                    | `report.tsv`, `pg_matrix.tsv`       |
+| DIA-NN      | `Precursor.Id`, `Protein.Group`, `Run`                    | `pg_matrix.tsv`, `report.tsv`       |
 | MaxQuant    | `Raw file`, `Protein IDs`                                 | `proteinGroups.txt`, `evidence.txt` |
 | Spectronaut | `PG.ProteinGroups`, `R.FileName`                          | `*_Report.tsv`                      |
 | AlphaDIA    | `pg`, `precursor.idx`, `run`                              | `pg_matrix.tsv`                     |
@@ -45,8 +45,8 @@ description: Read proteomics search engine outputs (PSM tables, protein matrices
 
 ## 2. Workflow Checklist
 
-- [ ] **Identify format:** `.tsv`/`.csv`/`.parquet`/`.hdf`, search engine (based on signature columns), and table type (PSM table vs. PG table, based on long/format)
-- [ ] **Read file:** Use appropriate table parsing engine (pandas)
+- [ ] **Identify format:** `.tsv`/`.csv`/`.parquet`/`.hdf`, search engine (based on signature columns), and table type (PSM table vs. PG table, based on long vs. wide format)
+- [ ] **Read file:** Use appropriate table parsing engine
 - [ ] **Map columns:** See [references/psm-columns.md](references/psm-columns.md) or [references/pg-columns.md](references/pg-columns.md)
 - [ ] **Filter (PSM only):** Remove rows where `fdr > 0.01`
 - [ ] **Remove decoys:** Filter by decoy indicator column OR protein ID prefix (`REV_`, `DECOY_`)
