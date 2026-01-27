@@ -9,14 +9,19 @@ description: Read proteomics search engine outputs (PSM tables, protein matrices
 
 ### Table Types
 
-| Type                                   | Format                    | Use When                                         |
-| -------------------------------------- | ------------------------- | ------------------------------------------------ |
-| **Peptide spectrum match (PSM) table** | Long (one row per match)  | Peptide-level analysis, PTMs, custom aggregation |
-| **Protein Group (PG) matrix**          | Wide (features × samples) | Protein-level analysis                           |
+| Type                                   | Format                    | Feature level                                              | Use When                                         |
+| -------------------------------------- | ------------------------- | ---------------------------------------------------------- | ------------------------------------------------ |
+| **Peptide spectrum match (PSM) table** | Long (one row per match)  | Precursor, Peptides (optional), Proteins, Genes (optional) | Peptide-level analysis, PTMs, custom aggregation |
+| **Protein Group (PG) matrix**          | Wide (proteins × samples) | Proteins, Genes (Optional)                                 | Protein-level analysis                           |
 
-**Use PG matrices** for protein-level analyses, if available
+**Use PG matrices** for protein- and gene-level analyses, if available
 
 ### Engine Detection Signatures
+
+**Column Mapping References** contain the mapping of search-engine columns to standardized columns. Multiple column names might map to the same standardized column name, depending on the search engine version
+
+- [references/psm-columns.md](references/psm-columns.md) — PSM table mappings
+- [references/pg-columns.md](references/pg-columns.md) — PG matrix mappings
 
 | Engine      | Key Columns                                               | Typical Files                       |
 | ----------- | --------------------------------------------------------- | ----------------------------------- |
@@ -27,11 +32,6 @@ description: Read proteomics search engine outputs (PSM tables, protein matrices
 | Sage        | `filename`, `stripped_peptide`, `sage_discriminant_score` | `results.sage.tsv`                  |
 | MSFragger   | `Protein ID`, `Spectral Count`                            | `combined_protein.tsv`, `psm.tsv`   |
 | AlphaPept   | `Unnamed: 0`, `_LFQ` suffix                               | `results.hdf`                       |
-
-**Column Mapping References** contain the mapping of search-engine columns to standardized columns
-
-- [references/psm-columns.md](references/psm-columns.md) — PSM table mappings
-- [references/pg-columns.md](references/pg-columns.md) — PG matrix mappings
 
 ### Intensity Types
 
@@ -53,7 +53,6 @@ description: Read proteomics search engine outputs (PSM tables, protein matrices
 - [ ] **Remove contaminants:** Filter protein ID prefix (`CON_`, `contaminant_`)
 - [ ] **Pivot and transpose** Validate that table is in wide format with samples as rows and features as columns (scikit-learn convention)
 - [ ] **Validate:** Confirm that table contains numeric intensities
-
 
 ## 3. Troubleshooting
 
