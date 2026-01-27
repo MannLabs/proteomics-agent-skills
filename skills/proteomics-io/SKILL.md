@@ -1,74 +1,66 @@
 ---
-name: proteomics-io
-description: Read and filter proteomics search engine outputs (PSM tables and protein group matrices) from DIA-NN, MaxQuant, Spectronaut, AlphaDIA, MSFragger, Sage, and other engines. Use when (1) ingesting proteomics data files (.tsv, .txt, .csv) for analysis, (2) mapping search engine column names to standardized fields, (3) identifying which search engine produced a file, (4) extracting protein/peptide intensities, or (5) preparing proteomics data for downstream statistical analysis.
+name: reading-proteomics-data
+description: Read proteomics search engine outputs (PSM tables, protein matrices) from search engines like DIA-NN, MaxQuant, Spectronaut, AlphaDIA, MSFragger, Sage. Use for ingesting data, mapping columns to standard names, and initial filtering.
 ---
 
 # Proteomics Search Engine Output Reader
 
-Read and interpret proteomics search engine outputs for downstream analysis.
+## 1. Context
 
-## Quick Reference
+### Table Types
 
-**Two main output types:**
+| Type                                   | Format                    | Use When                                         |
+| -------------------------------------- | ------------------------- | ------------------------------------------------ |
+| **Peptide spectrum match (PSM) table** | Long (one row per match)  | Peptide-level analysis, PTMs, custom aggregation |
+| **Protein Group (PG) matrix**          | Wide (features × samples) | Protein-level analysis                           |
 
-1. **PSM tables** (long format) - One row per peptide-spectrum match, contains all feature levels
-2. **Protein group tables** (wide format) - Features x samples matrix, protein-level only
+**Use PG matrices** for protein-level analyses, if available
 
-**Prefer protein group tables** when available and protein-level analysis is requested.
+### Engine Detection Signatures
 
-## Reading PSM Tables
+| Engine      | Key Columns                                               | Typical Files                       |
+| ----------- | --------------------------------------------------------- | ----------------------------------- |
+| DIA-NN      | `Precursor.Id`, `Protein.Group`, `Run`                    | `report.tsv`, `pg_matrix.tsv`       |
+| MaxQuant    | `Raw file`, `Protein IDs`                                 | `proteinGroups.txt`, `evidence.txt` |
+| Spectronaut | `PG.ProteinGroups`, `R.FileName`                          | `*_Report.tsv`                      |
+| AlphaDIA    | `pg`, `precursor.idx`, `run`                              | `pg_matrix.tsv`                     |
+| Sage        | `filename`, `stripped_peptide`, `sage_discriminant_score` | `results.sage.tsv`                  |
+| MSFragger   | `Protein ID`, `Spectral Count`                            | `combined_protein.tsv`, `psm.tsv`   |
+| AlphaPept   | `Unnamed: 0`, `_LFQ` suffix                               | `results.hdf`                       |
 
-PSM tables map peptide sequences to observed spectra with intensities.
+**Column Mapping References** contain the mapping of search-engine columns to standardized columns
 
-**Key fields to extract:**
-
-- `sequence` / `modified_sequence` - Peptide identification
-- `proteins` / `uniprot_ids` / `genes` - Protein mapping
-- `intensity` / `precursor_intensity` - Quantification
-- `fdr` / `score` - Quality metrics
-- `raw_name` - Sample identifier
-- `charge`, `rt`, `mobility` - Physical properties
-
-**Column mapping:** See [references/psm-columns.md](references/psm-columns.md)
-
-## Reading Protein Group Tables
-
-Protein group tables are wide-format matrices: features (rows) x samples (columns).
-
-### Engine-Specific File Formats
-
-| Engine      | Format | File type           | Protein ID Column                                               | Intensity Column Pattern                       |
-| ----------- | ------ | ------------------- | --------------------------------------------------------------- | ---------------------------------------------- |
-| AlphaPept   | HDF5   | `.csv`, `.hdf`      | Unnamed index at position 0, `pandas` parses it to `Unnamed: 0` | `{sample}_LFQ`, `{sample}_MS1`, `{sample}_MS2` |
-| DIA-NN      | TSV    | `.tsv`, `.parquet`  | `Protein.Group`                                                 | Sample names                                   |
-| MaxQuant    | TXT    | `proteinGroups.txt` | `Protein IDs`                                                   | `LFQ intensity {sample}`, `Intensity {sample}` |
-| Spectronaut | TSV    | `.tsv`              | `PG.ProteinGroups`                                              | `[{index}] {sample}.PG.Quantity`               |
-| AlphaDIA    | TSV    | `.tsv`              | `pg`                                                            | Sample names                                   |
-
-**Column mapping:** See [references/pg-columns.md](references/pg-columns.md) for a detailed description of the columns
+- [references/psm-columns.md](references/psm-columns.md) — PSM table mappings
+- [references/pg-columns.md](references/pg-columns.md) — PG matrix mappings
 
 ### Intensity Types
 
-Search engines may report multiple intensity types:
+| Type           | Use Case                            |
+| -------------- | ----------------------------------- |
+| **LFQ/MaxLFQ** | Cross-sample comparison (preferred) |
+| **MS1**        | Precursor area (DIA/DDA)            |
+| **MS2**        | Fragment-based quantification (DIA) |
 
-| Type       | Description                 | Use Case                     |
-| ---------- | --------------------------- | ---------------------------- |
-| MS1        | Direct peak area            | DDA, Low-input proteomics    |
-| MS2        | Sum of fragment intensities | Standard DIA                 |
-| LFQ/MaxLFQ | Label-free normalized       | Cross-run comparison         |
-| iBAQ       | Intensity-based absolute    | Protein abundance estimation |
+**Use LFQ-normalized intensities** for inter-sample comparisons, if available.
 
-**For comparing across samples, prefer LFQ-normalized intensities.**
+## 2. Workflow Checklist
 
-## Quality Filtering
+- [ ] **Identify format:** `.tsv`/`.csv`/`.parquet`/`.hdf`, search engine (based on signature columns), and table type (PSM table vs. PG table, based on long/format)
+- [ ] **Read file:** Use appropriate table parsing engine (pandas)
+- [ ] **Map columns:** See [references/psm-columns.md](references/psm-columns.md) or [references/pg-columns.md](references/pg-columns.md)
+- [ ] **Filter (PSM only):** Remove rows where `fdr > 0.01`
+- [ ] **Remove decoys:** Filter by decoy indicator column OR protein ID prefix (`REV_`, `DECOY_`)
+- [ ] **Remove contaminants:** Filter protein ID prefix (`CON_`, `contaminant_`)
+- [ ] **Pivot and transpose** Validate that table is in wide format with samples as rows and features as columns (scikit-learn convention)
+- [ ] **Validate:** Confirm that table contains numeric intensities
 
-Apply standard filters before analysis:
 
-### FDR filtering 
-In PSM tables, filter for features with a high FDR: typically 1% 
+## 3. Troubleshooting
 
-### Decoy removal 
-Remove decoys which are either indicated by a specific column (See columns that map to the standardized column `is_decoy`) or which are contain a specific indicator in the `sequence` column: e.g. a `REV_` prefix
-
-### Contaminant removal
-If applicable (e.g. for MaxQuant): Remove contaminants which are indicated by a designated column.
+| Issue                                                   | Solution                              |
+| ------------------------------------------------------- | ------------------------------------- |
+| MaxQuant decoy indicator `Reverse` uses `+` not boolean | Filter: `df['Reverse'] != '+'`        |
+| Spectronaut column names vary by export schema          | Inspect actual columns                |
+| AlphaPept HDF5 requires key                             | Use `key='protein_table'`             |
+| Zero values may mean "not detected"                     | Treat 0 as NA before statistics       |
+| Decoy prefix is on protein ID, not sequence             | Check `proteins`/`uniprot_ids` column |
