@@ -88,6 +88,6 @@ For each metric, remove MAD outliers (see [Key Metrics](#key-metrics))
 
 Output:
 
-1. **Summary table**: That shows for each quality control step the number of samples and features before and after filtering.
-2. **Histogram of each metric**: Before/after filtering
+1. **Summary table**: That shows for each quality control step the number of samples and features before and after filtering. For an example see ./references/qc-summary.tsv
+2. **Histogram of each metric**: Distribution of the respective metric before filtering on the left, and after filtering on the right.
 3. **Filtered matrix**: With observations as rows and features as columns. Ready for downstream processing

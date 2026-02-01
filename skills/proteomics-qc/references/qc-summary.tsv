@@ -1,0 +1,7 @@
+QC Step            Samples Before  Samples After  Features Before  Features After                                                        
+Initial                      120             120            5,432            5,432                                                           
+Remove Decoys                120             120            5,432            5,201                                       
+FDR Filtering                120             120            5,201            5,189                                       
+Sample Filtering Total Intensity      120             115            4,876            4,876
+Sample Filtering Feature Completeness     115             112            4,876            4,876                                       
+Feature Filtering Completeness        112             112            4,876            3,241              
