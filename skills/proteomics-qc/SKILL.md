@@ -84,7 +84,7 @@ For each metric, remove MAD outliers (see [Key Metrics](#key-metrics))
 - Compute completeness per feature
 - Remove features below completeness threshold
 
-### Step 8: Generate QC Report
+### Step 7: Generate QC Report
 
 Output:
 
