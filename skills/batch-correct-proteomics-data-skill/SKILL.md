@@ -29,13 +29,13 @@ Analysis step progress:
       If unsuccessful: Try another batch effect correction
 ```
 
-## Details
+## Workflow
 
-### Assess Batch Effects
+### 1. Assess Batch Effects
 
 #### Qualitative: Principal Component Analysis (PCA) Visualization
 
-Compute PCA and color samples by technical factors (e.g. plate, instrument, timepoint, processing date). Compare separation by technical vs biological factors. Strong batch effects show samples clustering by technical factors more than biological conditions.
+Compute PCA and color samples by technical factors (e.g. processing plate, instrument, timepoint, processing date). Compare separation by technical vs biological factors. Strong batch effects show samples clustering by technical factors more than biological conditions.
 
 #### Quantitative Metrics
 
@@ -47,9 +47,9 @@ Compute PCA and color samples by technical factors (e.g. plate, instrument, time
 
 **Decision**: Proceed with batch correction if metrics indicate substantial batch effects
 
-- Batch explains at least 5% cumulative explained variance in PCR
-- Average Silhouette Width of biological conditions is smaller than Average Silhouette Width
-- Pearson correlation of technical replicates is `r<0.9`
+- Batch explains `< 5%` cumulative explained variance in PCR
+- Average Silhouette Width of biological conditions is smaller than Average Silhouette Width of batch
+- Pearson correlation of technical replicates is `r < 0.9`
 
 ### 2. Prepare data
 
@@ -57,13 +57,13 @@ Ensure that
 
 - [ ] Data is log transformed and normalized
 - [ ] Batch must not confounded with biological conditions of interest
-- [ ] Missing values handled (impute or use NaN-tolerant batch correction method method)
+- [ ] Missing values handled (impute or use NaN-tolerant batch correction method)
 
 ### 3. Apply Batch Correction
 
 Apply batch correction algorithms according to their indicated priorities in the table.
 
-## 4. Validate Correction
+### 4. Validate Correction
 
 Re-compute the same metrics used in assessment:
 
