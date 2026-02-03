@@ -1,6 +1,6 @@
 ---
 name: imputing-proteomics-data
-description: Impute missing values in protein-level proteomics data matrices. Use when (1) preparing proteomics data for downstream analyses requiring complete matrices (PCA, batch correction), (2) evaluating whether imputation is needed, (3) selecting appropriate imputation methods based on missingness patterns, or (4) assessing imputation quality. Does NOT cover normalization or batch correction.
+description: Impute missing values in protein-level proteomics data matrices. Use when (1) preparing proteomics data for downstream analyses requiring complete matrices (PCA, batch correction), (2) evaluating whether imputation is needed, (3) selecting appropriate imputation methods, or (4) assessing imputation quality. Does NOT cover normalization or batch correction.
 ---
 
 # Imputing Proteomics Data
@@ -11,13 +11,13 @@ Impute missing values in protein intensity matrices for downstream analysis requ
 
 **Impute when:**
 
-- Downstream analysis requires complete data (PCA, COMBAT batch correction)
+- Downstream analysis requires complete data (e.g. PCA, COMBAT batch correction)
 - Missingness rate is moderate (<30-50% per feature)
 
 **Do NOT impute when:**
 
 - Downstream methods handle missing data natively (mixed-effects models, limma)
-- Feature missingness is high.
+- Feature missingness is high - instead remove highly missing features with low data support.
 
 ## Key missingness patterns
 
@@ -27,42 +27,45 @@ Impute missing values in protein intensity matrices for downstream analysis requ
 
 ## Imputation Workflow
 
-- [ ] **Filter** features with high missingness before imputation
-- [ ] **Ensure that data is log-transformed** data if not already (most methods assume log-scale)
-- [ ] **Assess** missingness patterns and select method
-- [ ] **Impute** the data
+Copy this checklist and track progress:
+
+```
+Analysis step progress:
+- [ ] **Prepare data**
+- [ ] **Assess** missingness patterns
+- [ ] **Select** method
+- [ ] **Apply imputation**
 - [ ] **Validate** imputation quality
+      If quality criteria not met: Restart at step `assess`
+```
 
-## Details
+## Workflow
 
-### Filtering Before Imputation
+### Prepare data
 
-Key question: Is missingness technical (below detection limit → impute) or biological (not expressed → do NOT impute)?
+**Remove** features with high missingness before imputation due to little data support. For typical datasets, features with <50% completeness should be removed. **Assess missingness within biological groups**, not globally. For example, a cell-type marker "missing" in 90% of cells but present in 100% of that cell type is informative
 
-**Homogeneous samples** (replicates of same condition/tissue):
+**Ensure that data is log-transformed** data if not already as most methods assume log-scale.
 
-- Filter features with ca. >50% global missingness
+### Assess missingness patterns
 
-**Heterogeneous samples** (mixed cell types, multi-tissue):
+Before imputation, assess missingness patterns.
 
-- Assess missingness within biological groups, not globally
-- A cell-type marker "missing" in 90% of cells but present in 100% of that cell type is informative
+**Calculate missingness rates** per feature.
 
-### Missingness Assessment
-
-Before imputation, assess missingness patterns:
-
-1. **Calculate missingness rates** per feature and per sample
-2. **Visualize intensity vs missingness** to identify MNAR patterns (low-intensity features have higher missingness)
-3. **Check for sample outliers** with abnormally high missingness
+**Visualize intensity vs missingness**. If missingness is higher for features with low intensity, this corresponds to a MNAR patterns. If the missingness is roughly independent, this corresponds to an MCAR or MAR pattern.
 
 ### Method Selection
 
-| Missingness Pattern                | Recommended Methods                        |
-| ---------------------------------- | ------------------------------------------ |
-| MCAR dominant (high completeness)  | KNN, median, Gaussian, BPCA, Random Forest |
-| MNAR dominant (many low-abundance) | MinProb, MinDet, LIMPA                     |
-| Large datasets                     | PIMMS (deep learning)                      |
+Rational: Prefer methods that consider the global data structure over methods that only consider local
+structure over methods that provide a single point estimate for all samples.
+
+| Missingness Pattern                   | Recommended Methods (in recommended priority)                |
+| ------------------------------------- | ------------------------------------------------------------ |
+| MCAR dominant (high completeness)     | BPCA > Random Forest > KNN > median imputation               |
+| MAR                                   | BPCA > > Random Forest > KNN > median imputation             |
+| MNAR dominant (many low-abundance)    | Density Probabilty Estimation (DPC/LIMPA) > MinProb > MinDet |
+| Datasets with many (ca. >500) samples | PIMMS (autoencoder)                                          |
 
 ### Quality Assessment
 
