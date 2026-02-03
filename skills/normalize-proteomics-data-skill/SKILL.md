@@ -28,10 +28,9 @@ Analysis step progress:
 - [ ] Assess Normalization Need
 - [ ] Data dependent: Select Additional Normalization
 - [ ] Evaluate Normalization Effect
+      If Successful: Proceed to "Batch correction"
+      If Unsuccessful: Return to Step 3 (Select normalization method 2, 3, etc.)
 ```
-
-If Successful: Proceed to "Batch correction"
-If Unsuccessful: Return to Step 3 (Select normalization method 2, 3, etc.)
 
 ## Workflow
 
