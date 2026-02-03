@@ -43,7 +43,7 @@ Analysis step progress:
 
 ### Prepare data
 
-**Remove** features with high missingness before imputation due to little data support. For typical datasets, features with <50% completeness should be removed. **Assess missingness within biological groups**, not globally. For example, a cell-type marker "missing" in 90% of cells but present in 100% of that cell type is informative
+**Remove** features with high missingness before imputation due to little data support. For typical datasets, features with <50% completeness should be removed. **Assess missingness within biological groups**, not globally. For example, a cell-type marker "missing" in 90% of cells but present in 100% of that cell type is informative.
 
 **Ensure that data is log-transformed** data if not already as most methods assume log-scale.
 
@@ -57,15 +57,15 @@ Before imputation, assess missingness patterns.
 
 ### Method Selection
 
-Rational: Prefer methods that consider the global data structure over methods that only consider local
+Rationale: Prefer methods that consider the global data structure over methods that only consider local
 structure over methods that provide a single point estimate for all samples.
 
-| Missingness Pattern                   | Recommended Methods (in recommended priority)                |
-| ------------------------------------- | ------------------------------------------------------------ |
-| MCAR dominant (high completeness)     | BPCA > Random Forest > KNN > median imputation               |
-| MAR                                   | BPCA > > Random Forest > KNN > median imputation             |
-| MNAR dominant (many low-abundance)    | Density Probabilty Estimation (DPC/LIMPA) > MinProb > MinDet |
-| Datasets with many (ca. >500) samples | PIMMS (autoencoder)                                          |
+| Missingness Pattern                   | Recommended Methods (in recommended priority)                 |
+| ------------------------------------- | ------------------------------------------------------------- |
+| MCAR dominant (high completeness)     | BPCA > Random Forest > KNN > median imputation                |
+| MAR                                   | BPCA > Random Forest > KNN > median imputation                |
+| MNAR dominant (many low-abundance)    | Density Probability Estimation (DPC/LIMPA) > MinProb > MinDet |
+| Datasets with many (ca. >500) samples | PIMMS (autoencoder)                                           |
 
 ### Quality Assessment
 
