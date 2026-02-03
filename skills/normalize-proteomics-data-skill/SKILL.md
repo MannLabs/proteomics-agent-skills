@@ -9,12 +9,14 @@ Normalization makes samples comparable by aligning sample-wide intensity distrib
 
 Common normalization methods include:
 
-| Priority | Method           | Use When                                                                                |
-| -------- | ---------------- | --------------------------------------------------------------------------------------- |
-| 1        | Median centering | Simple offset correction; robust baseline                                               |
-| 2        | Quantile         | Distributions should be identical across samples                                        |
-| 3        | VSN              | Need variance stabilization of of low-abundant features; performs well in DE benchmarks |
-| 4        | LOESS/RLR        | Suspect intensity-dependent bias (non-linear or linear)                                 |
+| Priority | Method           | Use When                                                                             |
+| -------- | ---------------- | ------------------------------------------------------------------------------------ |
+| 1        | Median centering | Simple offset correction; robust baseline                                            |
+| 2        | Quantile         | Distributions should be identical across samples                                     |
+| 3        | VSN              | Need variance stabilization of low-abundant features; performs well in DE benchmarks |
+| 4        | LOESS/RLR        | Suspect intensity-dependent bias (non-linear or linear)                              |
+
+**Recommendation**: Start with log2 only. If PCA shows intensity-driven structure, try median centering first, then VSN.
 
 ## Checklist
 
@@ -51,13 +53,13 @@ Check if total summed intensity drives variation:
 
 **When total intensity drives variance**, try the following normalization methods from the normalization method table in the order of their priority.
 
-[!Important] VSN normalization expects raw intensities - if you choose VSN, you need to go back to raw intensities and apply VSN to the raw intensities.
+> [!Important] VSN normalization expects raw intensities - if you choose VSN, you need to go back to raw intensities and apply VSN to the raw intensities.
 
 ### 4. Evaluate Normalization Effect (Required)
 
 It is critical that you assess the performance of the normalization, as benchmarks showed that many normalization methods perform worse than log2 alone on spike-in datasets and LFQ-normalized data (e.g., directLFQ) may not require additional normalization.
 
-**Pooled Median Absolute Deviation (PMAD)**: Average median absolute deviation across features within a biological condition should drop
+**Pooled Median Absolute Deviation (PMAD)** Average median absolute deviation across all features within a biological condition should drop
 
 - **Correlation of principal components with total intensity** should drop.
 
