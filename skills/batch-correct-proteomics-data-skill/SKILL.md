@@ -57,7 +57,7 @@ Ensure that
 
 - [ ] Data is log transformed and normalized
 - [ ] Batch must not be confounded with biological conditions of interest
-- [ ] Missing values handled (impute or use NaN-tolerant batch correction method)
+- [ ] Missing values are handled (impute or use NaN-tolerant batch correction method)
 
 ### 3. Apply Batch Correction
 
