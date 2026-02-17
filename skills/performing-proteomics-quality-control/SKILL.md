@@ -3,7 +3,7 @@ name: performing-proteomics-quality-control
 description: Perform quality control for protein-level proteomics data. Use when filtering outlier samples or low-evidence features before downstream analysis. Covers PSM artifact removal, sample QC, feature-level filtering. Does NOT cover normalization, batch correction, or imputation.
 ---
 
-# Proteomics Quality Control
+# Performing Proteomics Quality Control
 
 Goal: Remove outlier samples and unsupported features from protein-level quantification matrices.
 

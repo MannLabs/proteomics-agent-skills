@@ -3,7 +3,7 @@ name: normalizing-proteomics-data
 description: Evaluate the need for and perform normalization of protein-level proteomics intensity data. Use when (1) assessing whether normalization is needed, (2) selecting normalization methods, (3) applying it. Does NOT cover batch correction or imputation
 ---
 
-# Proteomics Data Normalization
+# Normalizing Proteomics Data 
 
 Normalization makes samples comparable by aligning sample-wide intensity distributions, removing technical variation from varying sample amounts or instrument differences. Normalization stabilizes variance (addresses heteroscedasticity) which is required for most downstream methods assuming homoskedastic noise. After normalization, feature intensity should reflect their relative biological abundance in the sample.
 

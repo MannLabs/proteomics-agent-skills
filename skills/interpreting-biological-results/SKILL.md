@@ -6,7 +6,7 @@ description: |
   for protein function, or (4) annotating clusters with pathway information.
 ---
 
-## Overview
+# Interpreting biological results from omics analyses
 
 This skill applies when an upstream analysis (differential expression, clustering, PCA, etc.) has generated:
 

@@ -3,7 +3,7 @@ name: reading-proteomics-data
 description: Read proteomics search engine outputs (PSM tables, protein matrices) from search engines like DIA-NN, MaxQuant, Spectronaut, AlphaDIA, MSFragger, Sage. Use for ingesting data, mapping columns to standard names, and initial filtering.
 ---
 
-# Proteomics Search Engine Output Reader
+# Reading Proteomics Search Engine Outputs
 
 ## 1. Context
 

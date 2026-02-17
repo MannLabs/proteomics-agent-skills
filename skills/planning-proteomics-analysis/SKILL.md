@@ -4,7 +4,7 @@ description: |
   Plans end-to-end proteomics analysis workflows including data reading, QC, preprocessing, statistical analysis, and biological interpretation. Use at the start or during analysis to orchestrate progress.
 ---
 
-## Overview
+# Planning Proteomics Data Analysis
 
 This skill provides a high-level framework for **planning** proteomics data analysis in six sequential phases. This skill links to specialized skills for each phase.
 
