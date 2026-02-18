@@ -5,7 +5,7 @@ description: |
 
 ---
 
-# Overview
+# Formulating Biological Findings from Proteomics Data
 
 This skill guides the transition from the analysis of differentially expressed proteins (upregulated and downregulated) to the synthesis of findings that highlight protein interactions, pathway cross-talk, or potential roles in disease.
 

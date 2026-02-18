@@ -3,7 +3,7 @@ name: performing-statistical-analysis
 description: Perform differential expression analysis on preprocessed proteomics data. Use this when performing finding testing (t-tests, ANOVA) to identify regulated proteins, and multiple testing correction (FDR). Generates standard visualizations like Volcano plots.
 ---
 
-# Proteomics Statistical Analysis
+# Performing Proteomics Statistical Analysis
 The goal of Differential Expression Analysis (DEA) is to identify proteins that change significantly between conditions.
 
 ## Context
