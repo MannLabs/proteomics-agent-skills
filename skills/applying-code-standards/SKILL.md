@@ -46,13 +46,13 @@ Code Quality Review:
 - ALWAYS maintain a clean, consistent directory layout
 - Separate exploratory work (notebooks, helper scripts) from production code (modules)
 - Treat raw data as immutable — never overwrite originals
-- ALWAYS create `requirements.txt` with pinned versions (`pip freeze > requirements.txt`) to capture the software environment for reproducibility.
+- ALWAYS create `requirements.txt` with the python version (`echo "# "$(python --version) >> requirements.txt`) and pinned versions (`pip freeze >> requirements.txt`) to capture the software environment for reproducibility.
 
 **Required: `requirements.txt` example:**
 ```
+# Python 3.13.2
 pandas==2.0.3
 numpy==1.24.0
-scipy==1.11.0
 ```
 
 ### 2. Readability
