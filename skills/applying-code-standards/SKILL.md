@@ -114,15 +114,9 @@ MIN_VALID_VALUES = ...
 
 **Required: Type hints for all functions:**
 ```python
-import pandas as pd
-
-def log2_transform(intensity_df: pd.DataFrame, sample_cols: list[str]) -> pd.DataFrame:
-    """Apply log2 transformation to intensity values."""
-    ...
-
-def filter_valid_values(df: pd.DataFrame, min_valid: int) -> pd.DataFrame:
-    """Filter rows with fewer than min_valid non-null values."""
-    ...
+def divide(enumerator: float, divisor: float) -> float:
+    """Divide enumerator by divisor"""
+    return  enumerator/divisor
 ```
 
 **Required: `README.md` template:**
