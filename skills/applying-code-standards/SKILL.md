@@ -9,6 +9,17 @@ description: |
 Review checklist for ensuring analysis code meets quality standards for maintainability and reproducibility.
 Covers project structure, readability, reproducibility, and documentation.
 
+---
+
+## Required Output Files (MANDATORY)
+
+Your analysis MUST include these files. Do not consider the analysis complete without them:
+
+1. **`config.py`** - All parameters with rationale comments explaining each threshold
+2. **`requirements.txt`** - Pinned dependency versions (e.g., `pandas==2.0.3`)
+3. **`README.md`** - Setup and usage instructions
+
+---
 
 ## Checklist
 
@@ -35,7 +46,7 @@ Code Quality Review:
 - ALWAYS maintain a clean, consistent directory layout
 - Separate exploratory work (notebooks, helper scripts) from production code (modules)
 - Treat raw data as immutable — never overwrite originals
-- ALWAYS create `requirements.txt` with pinned versions
+- ALWAYS create `requirements.txt` with pinned versions (`pip freeze > requirements.txt`) to capture the software environment for reproducibility.
 
 **Required: `requirements.txt` example:**
 ```
@@ -97,9 +108,22 @@ MIN_VALID_VALUES = ...
 ### 7. Documentation
 
 - Aim for self-explanatory code; reserve comments for *why*, not *what*
-- Add type hints for function signatures
+- ALWAYS add type hints for ALL function signatures
 - Place a brief docstring at the top of every module explaining its purpose
 - ALWAYS include a `README.md` explaining setup and how to run the analysis
+
+**Required: Type hints for all functions:**
+```python
+import pandas as pd
+
+def log2_transform(intensity_df: pd.DataFrame, sample_cols: list[str]) -> pd.DataFrame:
+    """Apply log2 transformation to intensity values."""
+    ...
+
+def filter_valid_values(df: pd.DataFrame, min_valid: int) -> pd.DataFrame:
+    """Filter rows with fewer than min_valid non-null values."""
+    ...
+```
 
 **Required: `README.md` template:**
 ```markdown
@@ -131,3 +155,16 @@ Parameters can be modified in `config.py`.
 ### 8. Housekeeping
 
 - Remove unused code, temporary files, and dead notebooks at the end
+
+---
+
+## Pre-Submission Checklist (MANDATORY)
+
+Before finalizing your analysis, verify ALL of these exist:
+
+- [ ] **`config.py`** exists with ALL thresholds and rationale comments
+- [ ] **`requirements.txt`** exists with pinned versions (e.g., `pandas==2.0.3`)
+- [ ] **`README.md`** exists with setup/usage/input/output sections
+- [ ] All functions have type hints (e.g., `def func(x: int) -> str:`)
+
+If any item is unchecked, go back and add it before completing the analysis.
