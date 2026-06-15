@@ -40,12 +40,8 @@ These apply across every phase and are non-negotiable:
 
 ## Failure Modes to Avoid
 
-- Imputing before assessing the missingness pattern (MNAR vs. MCAR).
-- Normalizing or batch-correcting without diagnostics indicating they are needed.
-- Treating zeros as real intensities instead of missing values (NA).
-- Skipping QC and carrying decoys, outlier samples, or low-evidence features into statistics.
-- Applying batch correction on anything other than the protein level, or without a diagnostic justification.
-- Running statistics on an incomplete or unnormalized matrix when the method assumes otherwise.
+These are orchestration-level failures. Method-level pitfalls (e.g. when to impute, normalize, or batch-correct) are owned by the individual skills.
+
 - Advancing to the next phase without checking the current phase's success criteria.
 - Re-implementing functionality that `alphapepttools` already provides.
 - Drawing biological conclusions before the computational analysis is complete and verified.
@@ -78,20 +74,7 @@ Translate regulated protein lists into biological pathways (e.g., Over-Represent
 Synthesize results into findings to understand potential connections between proteins and their roles in biological mechanisms or disease genesis.
 * **Skill:** `formulating-biological-findings`
 
-## Quick Reference
-
-| Phase | Skill | What it does |
-| --- | --- | --- |
-| 1. Read | `reading-proteomics-data` | Ingest engine outputs, map columns, initial filtering |
-| 2. QC | `performing-proteomics-quality-control` | Remove decoys, outlier samples, low-evidence features |
-| 3. Preprocess | `normalizing-proteomics-data` | Make samples comparable, stabilize variance |
-| 3. Preprocess | `imputing-proteomics-data` | Fill missing values for methods needing complete matrices |
-| 3. Preprocess | `correcting-proteomics-batch-effects` | Diagnose and correct technical batch bias |
-| 4. Statistics | `performing-statistical-analysis` | Differential expression, FDR, volcano plots |
-| 5. Interpret | `interpreting-biological-results` | ORA/GSEA, pathway and function annotation |
-| 6. Findings | `formulating-biological-findings` | Synthesize biological narrative and hypotheses |
-| Cross-cutting | `analyzing-proteomics-data` | Implement workflows with `alphapepttools` (AnnData) |
-| Cross-cutting | `applying-code-standards` | Code quality for reproducible analysis |
+The two cross-cutting skills apply throughout: `analyzing-proteomics-data` (implement workflows with `alphapepttools`) and `applying-code-standards` (code quality for reproducible analysis).
 
 ## Instructions
 
