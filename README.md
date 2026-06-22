@@ -15,7 +15,7 @@ analysis workflow built for protein-level data.
 ```
 
 Once installed, the skills activate automatically when relevant, or you can
-invoke one explicitly, e.g. `/proteomics:planning-proteomics-analysis`.
+invoke one explicitly, e.g. `/proteomics:using-proteomics-skills`.
 
 To update later, after new skills are pushed:
 
@@ -24,13 +24,27 @@ To update later, after new skills are pushed:
 /plugin update proteomics@proteomics-agent-skills
 ```
 
+### Without the marketplace
+
+You can also install the skills manually by copying them into your Claude Code
+skills directory:
+
+```
+git clone https://github.com/MannLabs/proteomics-agent-skills
+cp -r proteomics-agent-skills/plugins/proteomics/skills/* ~/.claude/skills/
+```
+
+Skills placed under `~/.claude/skills/` are available across all projects;
+copy them into a project's `.claude/skills/` instead to scope them to that
+project. Restart Claude Code (or reload skills) to pick them up.
+
 ## Skills
 
 The `proteomics` plugin bundles the following skills:
 
 | Skill | Purpose |
 |-------|---------|
-| `planning-proteomics-analysis` | Orchestrate an end-to-end analysis workflow |
+| `using-proteomics-skills` | Meta-skill: discover, sequence, and orchestrate an end-to-end analysis workflow |
 | `reading-proteomics-data` | Read PSM tables / protein matrices and map columns to standard names |
 | `performing-proteomics-quality-control` | Remove outlier samples and unsupported features |
 | `normalizing-proteomics-data` | Assess the need for and apply intensity normalization |
