@@ -3,30 +3,30 @@
 [Claude Code](https://claude.com/claude-code) Agent Skills for proteomics data
 analysis, from the [Mann Labs](https://github.com/MannLabs).
 
-These skills turn search-engine output tables (DIA-NN, Spectronaut, MaxQuant,
-AlphaDIA, MSFragger, Sage, …) into high-confidence biological insights, following
-established proteomics best practices.
+These skills bring proteomics-specific expertise to quantitative mass-spectrometry
+data. They handle the differences between search engines and guide a rigorous
+analysis workflow built for protein-level data.
 
 ## Install (Claude Code)
 
 ```
 /plugin marketplace add MannLabs/proteomics-agent-skills
-/plugin install proteomics-expert@proteomics-agent-skills
+/plugin install proteomics@proteomics-agent-skills
 ```
 
 Once installed, the skills activate automatically when relevant, or you can
-invoke one explicitly, e.g. `/proteomics-expert:planning-proteomics-analysis`.
+invoke one explicitly, e.g. `/proteomics:planning-proteomics-analysis`.
 
 To update later, after new skills are pushed:
 
 ```
 /plugin marketplace update proteomics-agent-skills
-/plugin update proteomics-expert@proteomics-agent-skills
+/plugin update proteomics@proteomics-agent-skills
 ```
 
 ## Skills
 
-The `proteomics-expert` plugin bundles the following skills:
+The `proteomics` plugin bundles the following skills:
 
 | Skill | Purpose |
 |-------|---------|
@@ -46,7 +46,7 @@ The `proteomics-expert` plugin bundles the following skills:
 .claude-plugin/
   marketplace.json              # marketplace manifest
 plugins/
-  proteomics-expert/
+  proteomics/
     .claude-plugin/plugin.json  # plugin manifest
     skills/
       <skill-name>/SKILL.md     # one directory per skill
@@ -54,4 +54,4 @@ plugins/
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Apache-2.0 — see [LICENSE](LICENSE).
