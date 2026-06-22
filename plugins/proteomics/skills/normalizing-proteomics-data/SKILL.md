@@ -3,20 +3,26 @@ name: normalizing-proteomics-data
 description: Evaluate the need for and perform normalization of protein-level proteomics intensity data. Use when (1) assessing whether normalization is needed, (2) selecting normalization methods, (3) applying it. Does NOT cover batch correction or imputation
 ---
 
-# Normalizing Proteomics Data 
+# Normalizing Proteomics Data
 
-Normalization makes samples comparable by aligning sample-wide intensity distributions, removing technical variation from varying sample amounts or instrument differences. Normalization stabilizes variance (addresses heteroscedasticity) which is required for most downstream methods assuming homoskedastic noise. After normalization, feature intensity should reflect their relative biological abundance in the sample.
+Normalization makes samples comparable by aligning their overall intensity distributions. It serves three main goals:
+
+- Aligning intensities across samples, which removes technical variation caused by differences in sample loading amounts or instrument behavior.
+- Preserving feature ranks within each sample, so the relative ordering of features is not distorted.
+- Stabilizing variance (i.e., addressing heteroscedasticity), which most downstream methods require because they assume homoscedastic noise.
+
+After normalization, a feature's intensity should reflect its relative biological abundance within a sample and remain comparable across samples.
 
 Common normalization methods include:
 
-| Priority | Method           | Use When                                                                             |
-| -------- | ---------------- | ------------------------------------------------------------------------------------ |
-| 1        | Median centering | Simple offset correction; robust baseline                                            |
-| 2        | Quantile         | Distributions should be identical across samples                                     |
-| 3        | VSN              | Need variance stabilization of low-abundant features; performs well in DE benchmarks |
-| 4        | LOESS/RLR        | Suspect intensity-dependent bias (non-linear or linear)                              |
+| Priority | Method                  | Input scale |
+| --- | --- | --- | --- |
+| 1        | Total sum normalization | Simple offset correction; robust baseline                                            | Linear-scale intensities                |
+| 2        | Quantile Normalization                | Distributions should be identical across samples                                     | Log-transformed intensities  |
+| 3        | Variance Stabilizing Normalization (VSN)                     | Need variance stabilization of low-abundant features; performs well in differential expression benchmarks | Linear-scale intensities              |
+| 4        | LOESS/RLR               | Suspect intensity-dependent bias (non-linear or linear)                              | Log-transformed intensities  |
 
-**Recommendation**: Start with log2 only. If PCA shows intensity-driven structure, try median centering first, then VSN.
+**Recommendation**: Start with log2 only. If PCA shows intensity-driven structure, try total sum normalization, then VSN.
 
 ## Checklist
 
@@ -38,8 +44,6 @@ Analysis step progress:
 
 Handle zeros as missing before log transformation
 
-Always ensure that intensities are log2-transformed before other normalization.
-
 ### 2. Assess Normalization Need
 
 Check if total summed intensity drives variation:
@@ -50,9 +54,9 @@ Check if total summed intensity drives variation:
 
 ### 3. Select Additional Normalization (if necessary)
 
-**When total intensity drives variance**, try the following normalization methods from the normalization method table in the order of their priority.
+**When total intensity drives variance**, try the normalization methods from the normalization method table in the order of their priority.
 
-> [!Important] VSN normalization expects raw intensities - if you choose VSN, you need to go back to raw intensities and apply VSN to the raw intensities.
+> [!Important] Different normalization methods assume different data distributions. Ensure _a priori_, that the current data distribution meets the assumptions of the normalization method based on the column `Input scale` in the table. If you select a normalization method that assumes linear-scaled intensities, you need to go back to linear-scaled intensities and apply these normalization methods to the raw intensities, then log-transform the normalized data.
 
 ### 4. Evaluate Normalization Effect (Required)
 
