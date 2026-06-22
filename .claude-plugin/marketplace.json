@@ -8,8 +8,8 @@
   "description": "Agent Skills for proteomics data analysis from the Mann Labs.",
   "plugins": [
     {
-      "name": "proteomics-expert",
-      "source": "./plugins/proteomics-expert",
+      "name": "proteomics",
+      "source": "./plugins/proteomics",
       "description": "Turn search-engine output tables into high-confidence biological insights: reading, QC, normalization, imputation, batch correction, differential expression, and biological interpretation.",
       "category": "data-analysis",
       "keywords": ["proteomics", "mass-spectrometry", "bioinformatics", "omics"]

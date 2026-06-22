@@ -11,22 +11,22 @@ established proteomics best practices.
 
 ```
 /plugin marketplace add MannLabs/proteomics-agent-skills
-/plugin install proteomics-expert@proteomics-agent-skills
+/plugin install proteomics@proteomics-agent-skills
 ```
 
 Once installed, the skills activate automatically when relevant, or you can
-invoke one explicitly, e.g. `/proteomics-expert:planning-proteomics-analysis`.
+invoke one explicitly, e.g. `/proteomics:planning-proteomics-analysis`.
 
 To update later, after new skills are pushed:
 
 ```
 /plugin marketplace update proteomics-agent-skills
-/plugin update proteomics-expert@proteomics-agent-skills
+/plugin update proteomics@proteomics-agent-skills
 ```
 
 ## Skills
 
-The `proteomics-expert` plugin bundles the following skills:
+The `proteomics` plugin bundles the following skills:
 
 | Skill | Purpose |
 |-------|---------|
@@ -46,7 +46,7 @@ The `proteomics-expert` plugin bundles the following skills:
 .claude-plugin/
   marketplace.json              # marketplace manifest
 plugins/
-  proteomics-expert/
+  proteomics/
     .claude-plugin/plugin.json  # plugin manifest
     skills/
       <skill-name>/SKILL.md     # one directory per skill
