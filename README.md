@@ -7,6 +7,34 @@ These skills bring proteomics-specific expertise to quantitative mass-spectromet
 data. They handle the differences between search engines and guide a rigorous
 analysis workflow built for protein-level data.
 
+## Manual install (internal users — temporary)
+
+> **Temporary section** — while the repository is private. Once it is public, use
+> the marketplace install below instead.
+
+Until the marketplace is reachable, install the skills manually using one of the
+following options, then restart Claude Code (or reload skills) to pick them up.
+
+### a) Clone via SSH
+
+```
+git clone git@github.com:MannLabs/proteomics-agent-skills.git
+cp -r proteomics-agent-skills/plugins/proteomics/skills/* ~/.claude/skills/
+```
+
+### b) Download the ZIP from GitHub
+
+On the [repository page](https://github.com/MannLabs/proteomics-agent-skills),
+click **Code → Download ZIP**, then unzip it and copy the skills:
+
+```
+unzip proteomics-agent-skills-main.zip
+cp -r proteomics-agent-skills-main/plugins/proteomics/skills/* ~/.claude/skills/
+```
+
+Skills placed under `~/.claude/skills/` are available across all projects; copy
+them into a project's `.claude/skills/` instead to scope them to that project.
+
 ## Install (Claude Code)
 
 ```
