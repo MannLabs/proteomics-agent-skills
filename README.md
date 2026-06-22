@@ -3,9 +3,9 @@
 [Claude Code](https://claude.com/claude-code) Agent Skills for proteomics data
 analysis, from the [Mann Labs](https://github.com/MannLabs).
 
-These skills turn search-engine output tables (DIA-NN, Spectronaut, MaxQuant,
-AlphaDIA, MSFragger, Sage, …) into high-confidence biological insights, following
-established proteomics best practices.
+These skills bring proteomics-specific expertise to quantitative mass-spectrometry
+data. They handle the differences between search engines and guide a rigorous
+analysis workflow built for protein-level data.
 
 ## Install (Claude Code)
 
