@@ -9,6 +9,6 @@
   },
   "homepage": "https://github.com/MannLabs/proteomics-agent-skills",
   "repository": "https://github.com/MannLabs/proteomics-agent-skills",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": ["proteomics", "mass-spectrometry", "bioinformatics", "omics", "skills"]
 }
