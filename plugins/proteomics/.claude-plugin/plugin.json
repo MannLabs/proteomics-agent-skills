@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "proteomics-expert",
+  "version": "0.1.0",
+  "description": "Transform proteomics search-engine output tables into high-confidence biological insights using best practices: data reading, quality control, normalization, imputation, batch-effect correction, differential expression analysis, and biological interpretation.",
+  "author": {
+    "name": "MannLabs",
+    "url": "https://github.com/MannLabs"
+  },
+  "homepage": "https://github.com/MannLabs/proteomics-agent-skills",
+  "repository": "https://github.com/MannLabs/proteomics-agent-skills",
+  "license": "MIT",
+  "keywords": ["proteomics", "mass-spectrometry", "bioinformatics", "omics", "skills"]
+}

@@ -1,0 +1,57 @@
+# Proteomics Agent Skills
+
+[Claude Code](https://claude.com/claude-code) Agent Skills for proteomics data
+analysis, from the [Mann Labs](https://github.com/MannLabs).
+
+These skills turn search-engine output tables (DIA-NN, Spectronaut, MaxQuant,
+AlphaDIA, MSFragger, Sage, …) into high-confidence biological insights, following
+established proteomics best practices.
+
+## Install (Claude Code)
+
+```
+/plugin marketplace add MannLabs/proteomics-agent-skills
+/plugin install proteomics-expert@proteomics-agent-skills
+```
+
+Once installed, the skills activate automatically when relevant, or you can
+invoke one explicitly, e.g. `/proteomics-expert:planning-proteomics-analysis`.
+
+To update later, after new skills are pushed:
+
+```
+/plugin marketplace update proteomics-agent-skills
+/plugin update proteomics-expert@proteomics-agent-skills
+```
+
+## Skills
+
+The `proteomics-expert` plugin bundles the following skills:
+
+| Skill | Purpose |
+|-------|---------|
+| `planning-proteomics-analysis` | Orchestrate an end-to-end analysis workflow |
+| `reading-proteomics-data` | Read PSM tables / protein matrices and map columns to standard names |
+| `performing-proteomics-quality-control` | Remove outlier samples and unsupported features |
+| `normalizing-proteomics-data` | Assess the need for and apply intensity normalization |
+| `imputing-proteomics-data` | Impute missing values for downstream analyses |
+| `correcting-proteomics-batch-effects` | Diagnose and correct batch effects |
+| `performing-statistical-analysis` | Differential expression analysis (t-tests, ANOVA, FDR, volcano plots) |
+| `interpreting-biological-results` | ORA / GSEA, STRING / UniProt annotation |
+| `formulating-biological-findings` | Draw biological and clinical conclusions |
+
+## Repository layout
+
+```
+.claude-plugin/
+  marketplace.json              # marketplace manifest
+plugins/
+  proteomics-expert/
+    .claude-plugin/plugin.json  # plugin manifest
+    skills/
+      <skill-name>/SKILL.md     # one directory per skill
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
