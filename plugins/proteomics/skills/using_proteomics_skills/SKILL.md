@@ -1,7 +1,7 @@
 ---
 name: using-proteomics-skills
 description: |
-  Meta-skill for discovering, orchestrating, and sequencing the proteomics analysis skills. Use at the start of any proteomics task to identify which phase applies and which specialized skill to invoke, and to plan and track an end-to-end workflow (reading, QC, preprocessing, statistics, interpretation, findings).
+  Meta-skill for discovering, orchestrating, and sequencing proteomics analysis skills (reading, QC, preprocessing, statistics, interpretation, findings). Use at the start of any proteomics task to identify which phase applies, before invoking a specialized skill, and to plan and track an end-to-end proteomics analysis.
 ---
 
 # Using Proteomics Skills
